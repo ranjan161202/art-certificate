@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-
-function ImageUpload() {
+import React, { useState, useEffect } from 'react';
+import Buy from './Buy';
+function ImageUpload({state}) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [imageHash, setimageHash] = useState("")
+
+  console.log(state);
+  
 
   function handleFileInputChange(event) {
     const selectedFile = event.target.files[0];
@@ -22,15 +26,14 @@ function ImageUpload() {
       return response.json();
     }).then(data=>{
       console.log(data.message);
-      document.getElementById('message').innerHTML=data.message;
+      document.getElementById('Message').innerHTML=data.message;
       setSelectedFile(selectedFile);
+      setimageHash(data.imageHash);
     })
     .catch(error => {
       console.error(error);
     });
-  
   }
-  
 
   return (
     <div>
@@ -39,10 +42,11 @@ function ImageUpload() {
         <img
           src={URL.createObjectURL(selectedFile)}
           alt="Selected file"
-          style={{ maxWidth: '100%', maxHeight: '100vh' }}
+          style={{ maxWidth: '50%', maxHeight: '50vh' }}
         />
       )}
-      <div id='message'></div>
+      <div id='Message'></div>
+      {document.querySelector("#Message")!=null && document.querySelector("#Message").innerHTML==="Image uploaded successfully"?<Buy state={state} imageHash={imageHash}></Buy>:null}
     </div>
   );
 }

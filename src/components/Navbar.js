@@ -43,7 +43,11 @@ const Navbar = () => {
                   
                 
                 </form>
-                  :<button className="btn btn-primary mx-2" onClick={LogoutHandle}>Logout</button>}
+                  :
+                  <form>
+                      <Link className="btn btn-primary mx-2" to="/transactions">My Transactions</Link>
+                      <button className="btn btn-primary mx-2" onClick={LogoutHandle}>Logout</button>
+                  </form>}
           </div>
           </div>
           </div>
